@@ -2,12 +2,10 @@ package win.whitelife.zfokhttplibrary;
 
 import java.io.IOException;
 
-import okhttp3.*;
 import okhttp3.Call;
 
 /**
  * @author wuzefeng
- * @date 2018/4/19
  */
 public class HttpResponse {
 

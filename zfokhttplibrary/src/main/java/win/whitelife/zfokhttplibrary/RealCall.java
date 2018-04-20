@@ -12,7 +12,6 @@ import okhttp3.Response;
 
 /**
  * @author wuzefeng
- * @date 2018/4/18
  */
 public class RealCall implements Call {
 

@@ -4,7 +4,6 @@ import okhttp3.MediaType;
 
 /**
  * @author wuzefeng
- * @date 2018/4/18
  */
 public class MediaTypes {
 

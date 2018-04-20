@@ -11,7 +11,6 @@ import okhttp3.*;
 
 /**
  * @author wuzefeng
- * @date 2018/4/18
  */
 public class ResponseHandler extends Handler {
 

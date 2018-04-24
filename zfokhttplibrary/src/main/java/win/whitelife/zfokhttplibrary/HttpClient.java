@@ -1,5 +1,7 @@
 package win.whitelife.zfokhttplibrary;
 
+import android.arch.lifecycle.Lifecycle;
+
 import okhttp3.OkHttpClient;
 
 /**
@@ -19,6 +21,7 @@ public class HttpClient{
         mOkHttpClient=new OkHttpClient();
 
         mResponseHandler=new ResponseHandler();
+
     }
 
     public static HttpClient getInstanse(){

@@ -1,8 +1,10 @@
 package win.whitelife.zfokhttp;
 
+import android.arch.lifecycle.Lifecycle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -16,19 +18,22 @@ import win.whitelife.zfokhttplibrary.IHttpCallback;
  */
 public class MainActivity extends AppCompatActivity {
 
+    TextView mTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        HttpClient.getInstanse().newRequest("Http://www.baidu.com").getEnqueue(new IHttpCallback() {
+        mTextView=findViewById(R.id.tv);
+        HttpClient.getInstanse().newRequest("https://www.zhibo8.cc/").bindLifeCircle(this, Lifecycle.Event.ON_STOP).getEnqueue(new IHttpCallback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
             }
 
             @Override
-            public void onResponse(Call call, String response) throws IOException {
-                Log.e(TAG,response) ;
+            public void onResponse(Call call, String response)  {
+                mTextView.setText(response);
             }
         });
 

@@ -1,7 +1,5 @@
 package win.whitelife.zfokhttplibrary;
 
-import android.arch.lifecycle.Lifecycle;
-
 import okhttp3.OkHttpClient;
 
 /**

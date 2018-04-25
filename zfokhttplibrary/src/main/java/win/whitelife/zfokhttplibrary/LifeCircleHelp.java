@@ -41,14 +41,14 @@ public class LifeCircleHelp {
 
 
 
-    public SupportRequestManagerFragment bindLifeCircle(Context context){
+    public SupportRequestManagerFragment bindLifeCircle(Context context) throws Exception {
         SupportRequestManagerFragment supportRequestManagerFragment=null;
         if (context instanceof FragmentActivity) {
             supportRequestManagerFragment= bind((FragmentActivity) context);
         } else if (context instanceof Activity) {
             supportRequestManagerFragment= bind((Activity) context);
-        } else if (context instanceof ContextWrapper) {
-            supportRequestManagerFragment=bind(((ContextWrapper) context).getBaseContext());
+        } else {
+           throw new Exception("context 不支持");
         }
        return supportRequestManagerFragment;
     }

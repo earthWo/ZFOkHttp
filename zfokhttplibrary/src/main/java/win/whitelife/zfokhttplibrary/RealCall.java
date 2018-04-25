@@ -3,6 +3,8 @@ package win.whitelife.zfokhttplibrary;
 import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 import android.os.Message;
+import android.util.Log;
+
 import java.io.IOException;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -111,7 +113,11 @@ public class RealCall implements Call,LifeListener {
     @Override
     public Call bindLifeCircle(Context context, Lifecycle.Event event) {
         this.mEvent=event;
-        LifeCircleHelp.get().bindLifeCircle(context).registerLifeListener(this);
+        try {
+            LifeCircleHelp.get().bindLifeCircle(context).registerLifeListener(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

@@ -1,9 +1,11 @@
 package win.whitelife.zfokhttplibrary;
 
+import android.arch.lifecycle.Lifecycle;
+import android.content.Context;
 import android.os.Message;
+import android.util.Log;
 
 import java.io.IOException;
-
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -13,13 +15,15 @@ import okhttp3.Response;
 /**
  * @author wuzefeng
  */
-public class RealCall implements Call {
+public class RealCall implements Call,LifeListener {
 
     private OkHttpClient mOkHttpClient;
 
     private String url;
 
     private Request.Builder mBuilder;
+
+    private Lifecycle.Event mEvent;
 
 
     private RealCall(String url,OkHttpClient okHttpClient){
@@ -46,11 +50,13 @@ public class RealCall implements Call {
         return callRequest(request);
     }
 
+    private okhttp3.Call mCall;
 
     private Response callRequest(Request request){
         Response response=null;
         try {
-            response=mOkHttpClient.newCall(request).execute();
+            mCall=mOkHttpClient.newCall(request);
+            response=mCall.execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +67,8 @@ public class RealCall implements Call {
     }
 
     private void callRequest(final Request request, final IHttpCallback iHttpCallback){
-        mOkHttpClient.newCall(request).enqueue(new Callback() {
+        mCall=mOkHttpClient.newCall(request);
+        mCall.enqueue(new Callback() {
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
                 HttpResponse response=new HttpResponse(call,e,null,iHttpCallback);
@@ -102,4 +109,25 @@ public class RealCall implements Call {
         return this;
     }
 
+
+    @Override
+    public Call bindLifeCircle(Context context, Lifecycle.Event event) {
+        this.mEvent=event;
+        try {
+            LifeCircleHelp.get().bindLifeCircle(context).registerLifeListener(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+
+    @Override
+    public void lifeCircleUpdate(Lifecycle.Event event) {
+        if(event==mEvent){
+           if(!mCall.isCanceled()){
+               mCall.cancel();
+           }
+        }
+    }
 }

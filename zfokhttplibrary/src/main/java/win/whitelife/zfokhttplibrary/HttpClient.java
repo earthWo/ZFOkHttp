@@ -19,6 +19,7 @@ public class HttpClient{
         mOkHttpClient=new OkHttpClient();
 
         mResponseHandler=new ResponseHandler();
+
     }
 
     public static HttpClient getInstanse(){

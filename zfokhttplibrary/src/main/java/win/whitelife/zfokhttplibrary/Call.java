@@ -1,5 +1,8 @@
 package win.whitelife.zfokhttplibrary;
 
+import android.arch.lifecycle.Lifecycle;
+import android.content.Context;
+
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -19,5 +22,8 @@ public interface Call {
     void postEnqueue(String json,IHttpCallback httpCallback);
 
     Call addHeader(String name,String value);
+
+
+    Call bindLifeCircle(Context context, Lifecycle.Event event);
 
 }

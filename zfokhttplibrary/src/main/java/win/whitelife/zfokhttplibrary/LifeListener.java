@@ -4,7 +4,6 @@ import android.arch.lifecycle.Lifecycle;
 
 /**
  * @author wuzefeng
- * @date 2018/4/24
  */
 public interface LifeListener {
 
